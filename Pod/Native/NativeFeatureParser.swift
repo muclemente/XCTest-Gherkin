@@ -10,6 +10,12 @@ import Foundation
 
 struct NativeFeatureParser {
     let path: URL
+    let selectedTags: [String]
+    
+    init(path: URL, selectedTags: [String] = []) {
+        self.path = path
+        self.selectedTags = selectedTags
+    }
     
     func parsedFeatures() -> [NativeFeature]? {
         let manager = FileManager.default
@@ -40,7 +46,7 @@ struct NativeFeatureParser {
     }
     
     private func parseFeatureFile(_ file: URL) -> NativeFeature? {
-        guard let feature = NativeFeature(contentsOfURL: file) else {
+        guard let feature = NativeFeature(contentsOfURL: file, selectedTags: selectedTags) else {
             assertionFailure("Could not parse feature at URL \(file.description)")
             return nil
         }

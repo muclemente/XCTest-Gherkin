@@ -39,6 +39,10 @@ open class NativeTestCase: XCGNativeInitializer {
         return nil
     }
     
+    class open func tags() -> [String] {
+        return []
+    }
+    
     static var _features: [NativeFeature]?
     class func features() -> [NativeFeature] {
         if let features = _features {
@@ -52,7 +56,7 @@ open class NativeTestCase: XCGNativeInitializer {
             return []
         }
         
-        guard let features = NativeFeatureParser(path: path).parsedFeatures() else {
+        guard let features = NativeFeatureParser(path: path, selectedTags: tags()).parsedFeatures() else {
             assertionFailure("Could not retrieve features from the path '\(path)'")
             return []
         }
@@ -103,6 +107,7 @@ open class NativeTestCase: XCGNativeInitializer {
         let success = class_addMethod(self, selector, method_getImplementation(method!), method_getTypeEncoding(method!))
         assert(success, "Could not swizzle feature test method!")
     }
+    
     
 }
 

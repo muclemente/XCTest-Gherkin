@@ -49,7 +49,7 @@ fileprivate func allClasses() -> [AnyClass] {
     let expectedClassCount = objc_getClassList(nil, 0) * 2
 
     let allClasses = UnsafeMutablePointer<AnyClass>.allocate(capacity: Int(expectedClassCount))
-    let autoreleasingAllClasses = AutoreleasingUnsafeMutablePointer<AnyClass>(allClasses)  // Huh? We should have gotten this for free.
+    let autoreleasingAllClasses = AutoreleasingUnsafeMutablePointer<AnyClass?>(allClasses)  // Huh? We should have gotten this for free.
     let actualClassCount = objc_getClassList(autoreleasingAllClasses, expectedClassCount)
 
     // Take care of the stunningly rare situation where we get more classes back than we have allocated,

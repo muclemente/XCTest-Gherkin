@@ -9,16 +9,16 @@
 import Foundation
 
 private struct FileTags {
-    static let Feature = "Feature:"
+    static let Feature = "Funcionalidade:"
     static let Background = "Background:"
-    static let Scenario = "Scenario:"
-    static let Outline = "Scenario Outline:"
-    static let Examples = "Examples:"
+    static let Scenario = "Cenário:"
+    static let Outline = "Esquema do Cenário:"
+    static let Examples = "Exemplos:"
     static let ExampleLine = "|"
-    static let Given = "Given"
-    static let When = "When"
-    static let Then = "Then"
-    static let And = "And"
+    static let Given = "Dado"
+    static let When = "Quando"
+    static let Then = "Então"
+    static let And = "E "
 }
 
 class NativeFeature: CustomStringConvertible {
@@ -45,7 +45,7 @@ class NativeFeature: CustomStringConvertible {
 
 extension NativeFeature {
     
-    convenience init?(contentsOfURL url: URL) {
+    convenience init?(contentsOfURL url: URL, selectedTags: [String]) {
         // Read in the file
         let contents = try! NSString(contentsOf: url, encoding: String.Encoding.utf8.rawValue)
         
@@ -54,7 +54,7 @@ extension NativeFeature {
         
         // Get all the lines in the file
         var lines = contentsFixedWindowsNewLineCharacters.components(separatedBy: "\n").map { $0.trimmingCharacters(in: whitespace) }
-
+    
         // Filter comments (#) and tags (@), also filter white lines
         lines = lines.filter { $0.first != "#" &&  $0.first != "@" && $0.count > 0}
 
