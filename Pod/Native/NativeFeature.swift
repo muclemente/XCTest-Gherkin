@@ -45,7 +45,7 @@ class NativeFeature: CustomStringConvertible {
 
 extension NativeFeature {
     
-    convenience init?(contentsOfURL url: URL, selectedTags: [String]) {
+    convenience init?(contentsOfURL url: URL) {
         // Read in the file
         let contents = try! NSString(contentsOf: url, encoding: String.Encoding.utf8.rawValue)
         

@@ -56,7 +56,7 @@ open class NativeTestCase: XCGNativeInitializer {
             return []
         }
         
-        guard let features = NativeFeatureParser(path: path, selectedTags: tags()).parsedFeatures() else {
+        guard let features = NativeFeatureParser(path: path).parsedFeatures() else {
             assertionFailure("Could not retrieve features from the path '\(path)'")
             return []
         }
